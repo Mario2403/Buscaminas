@@ -3,55 +3,17 @@ import java.util.Scanner;
 
 public class JuegoBuscaminas {
 
-    private Celda[][] tablero;
-    private int huecosTotales=0;
-    private int huecosDestapados=0;
-    
+    private Tablero tablero= new Tablero();
 
 
     public JuegoBuscaminas(){
 
-        this.tablero= new Celda[10][10];
-        llenaTablero();
-        actualizaTablero();
+        tablero.llenar();
+        tablero.actualizarTablero();
 
     }
-
-    private void actualizaTablero() {
-
-        for (int i=0; i<tablero.length; i++) {
-            for (int j=0 ; j<tablero[0].length; j++) {
-                tablero[i][j].actualizaVecinos(tablero);
-            }
-
-
-        }
-    }
-
-
-    private void llenaTablero() {
-
-        for (int i=0; i<tablero.length; i++) {
-            for (int j=0 ; j<tablero[0].length; j++) {
-
-                int numeroAleatorio = (int) (Math.random() * 2);
-                Coordenada posicion= new Coordenada(i, j);
-
-                if (numeroAleatorio == 0) {
-                    tablero[i][j] = new Celda(true,  posicion);
-                } else {
-                    tablero[i][j] = new Celda(false, posicion);
-                    huecosTotales++;
-                }
-
-            }
-        }
-
-    }
-
 
     public void run() {
-
 
         comenzarJuego();
 
@@ -59,67 +21,58 @@ public class JuegoBuscaminas {
 
     private void comenzarJuego() {
 
+        tablero.mostrarTablero();
+
         do {
-            muestraTablero();
             Coordenada coordenada = preguntaDestapar();
             destapa(coordenada);
+            tablero.mostrarTablero();
         }while(!bombaDestapada() && quedanEspaciosLibres());
+
+        escribeResultado();
+
 
         //Muestra tablero
         //Pregunta donde destapar
         //Destapa
+        //Muestra tablero
+
+        //Se ha ganado o perdido?
+
+    }
+
+    private void escribeResultado() {
+        if(bombaDestapada()) System.out.println("Has perdido");
+        else if(!quedanEspaciosLibres()) System.out.println("Has ganado");
     }
 
 
     private boolean quedanEspaciosLibres() {
-        return huecosDestapados < huecosTotales;
+        return tablero.quedanEspaciosLibres();
 
     }
 
     private boolean bombaDestapada() {
-        for (int i=0; i<tablero.length; i++) {
-            for (int j=0 ; j<tablero[0].length; j++) {
-                if (tablero[i][j].isDescubierto() && tablero[i][j].isBomba()){
-                    System.out.println("Bomba");
-                    return true;
-                }
-            }
 
-
-
-        }
-        return false;
+        return tablero.compruebaBombaDestapada();
 
     }
 
     private void destapa(Coordenada coordenada) {
 
-        tablero[coordenada.getX()][coordenada.getY()].setDescubierto(true);
-        huecosDestapados++;
+        tablero.destapa(coordenada);
 
     }
 
     private Coordenada preguntaDestapar() {
+
+
         Scanner lector= new Scanner(System.in);
         Coordenada coordenada= new Coordenada(0,0);
         System.out.println("Que casillas quieres destapar?");
         coordenada.setY( lector.nextInt());
         coordenada.setX(lector.nextInt());
         return coordenada;
-
-    }
-
-    private void muestraTablero() {
-
-        for (int i=0; i<tablero.length; i++) {
-            for (int j=0 ; j<tablero[0].length; j++) {
-                tablero[i][j].imprime();
-            }
-            System.out.println("");
-
-
-        }
-
 
     }
 

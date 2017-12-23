@@ -29,11 +29,6 @@ public class Celda {
         return bombasVecinas;
     }
 
-    public void setBomba(boolean bomba) {
-
-        this.bomba = bomba;
-    }
-
     public void setDescubierto(boolean descubierto) {
         this.descubierto = descubierto;
     }
@@ -43,10 +38,15 @@ public class Celda {
     }
 
 
+    public Coordenada getPosicion() {
+        return posicion;
+    }
+/*
     public void actualizaVecinos(Celda[][] tablero) {
 
         if (this.isBomba()) setBombasVecinas(getBombasVecinas()-1);
         int i=posicion.getX();
+
         int j=posicion.getY();
 
         int iDesde=i-1, iHasta=i+1, jDesde=j-1, jHasta=j+1;
@@ -68,8 +68,8 @@ public class Celda {
 
 
     }
-
-    private void sumaBombaVecina() {
+*/
+    public void sumaBombaVecina() {
         this.setBombasVecinas(this.getBombasVecinas()+1);
     }
 
@@ -77,7 +77,7 @@ public class Celda {
 
         if(isDescubierto()) {
             if (isBomba()){
-                System.out.print(" *");
+                System.out.print("|*");
             }else {
                 System.out.print("|" + getBombasVecinas());
             }
