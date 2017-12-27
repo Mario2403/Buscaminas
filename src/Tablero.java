@@ -1,13 +1,21 @@
+import javax.swing.*;
+
 public class Tablero {
 
-    private Celda[][] tablero= new Celda[3][3];
+    private Celda[][] tablero= new Celda[8][8];
     private int huecosTotales=0;
     private int huecosDestapados=0;
 
 
-
+    public Celda[][] getTablero() {
+        return tablero;
+    }
+    public Celda getElemento(int i, int j){
+        return tablero[i][j];
+    }
 
     public void llenar() {
+
 
         for (int i=0; i<tablero.length; i++) {
 
@@ -130,5 +138,17 @@ public class Tablero {
             }
         }
         return false;
+    }
+
+    public int getTamañoX() {
+        return tablero.length;
+    }
+
+    public int getTamañoY() {
+        return tablero[0].length;
+    }
+
+    public JButton obtenerBotonCelda(int i, int j) {
+        return tablero[i][j].getBoton();
     }
 }

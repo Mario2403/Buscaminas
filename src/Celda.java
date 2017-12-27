@@ -1,14 +1,29 @@
-public class Celda {
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Celda implements ActionListener {
 
     private boolean bomba;
     private boolean descubierto=false;
     private int bombasVecinas=0;
     private Coordenada posicion;
+    private JButton boton = new JButton();
 
 
     public Celda(boolean bomba, Coordenada posicion) {
         this.bomba = bomba;
         this.posicion= posicion;
+        boton.addActionListener(this);
+        boton.setFont(new Font("Arial", Font.BOLD, 11));
+        boton.setPreferredSize(new Dimension(40, 40));
+
+
+    }
+
+    public JButton getBoton() {
+        return boton;
     }
 
     public Celda(boolean bomba, boolean descubierto, Coordenada posicion) {
@@ -84,6 +99,14 @@ public class Celda {
         }
         else{
             System.out.print("| ");
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource()==boton){
+            this.descubierto=true;
+            boton.setText(bombasVecinas +"");
         }
     }
 }

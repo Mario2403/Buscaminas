@@ -21,6 +21,8 @@ public class JuegoBuscaminas {
 
     private void comenzarJuego() {
 
+        Marco ventana = new Marco(tablero);
+
         tablero.mostrarTablero();
 
         do {
@@ -69,11 +71,27 @@ public class JuegoBuscaminas {
 
         Scanner lector= new Scanner(System.in);
         Coordenada coordenada= new Coordenada(0,0);
-        System.out.println("Que casillas quieres destapar?");
-        coordenada.setY( lector.nextInt());
-        coordenada.setX(lector.nextInt());
+        do {
+            System.out.println("Que casillas quieres destapar?");
+            coordenada.setY(lector.nextInt());
+            coordenada.setX(lector.nextInt());
+        }while(!coordenadaEsValida(coordenada));
+
+
         return coordenada;
 
+    }
+
+    private boolean coordenadaEsValida(Coordenada coordenada) {
+
+        boolean xCorrecta= coordenada.getX()>=0 && coordenada.getX()<tablero.getTamañoX();
+        boolean yCorrecta = coordenada.getY()>=0 && coordenada.getY()<tablero.getTamañoY();
+
+        return xCorrecta && yCorrecta && !casillaDestapada(coordenada);
+    }
+
+    private boolean casillaDestapada(Coordenada coordenada) {
+        return tablero.getElemento(coordenada.getX(), coordenada.getY()).isDescubierto();
     }
 
 
