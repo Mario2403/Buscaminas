@@ -73,17 +73,18 @@ public class Celda {
         this.setBombasVecinas(this.getBombasVecinas()+1);
     }
 
+
     public void imprime() {
 
         if(isDescubierto()) {
             if (isBomba()){
-                System.out.print("|*");
+                System.out.print("*");
             }else {
-                System.out.print("|" + getBombasVecinas());
+                System.out.print(getBombasVecinas());
             }
         }
         else{
-            System.out.print("| ");
+            System.out.print("#");
         }
     }
 }

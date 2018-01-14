@@ -1,6 +1,6 @@
 public class Tablero {
 
-    private Celda[][] tablero= new Celda[3][3];
+    private Celda[][] tablero= new Celda[10][10];
     private int huecosTotales=0;
     private int huecosDestapados=0;
 
@@ -74,7 +74,7 @@ public class Tablero {
             for (int j=0 ; j<tablero[0].length; j++) {
                 tablero[i][j].imprime();
             }
-            System.out.println("");
+            System.out.print("\n");
 
 
         }
@@ -130,5 +130,17 @@ public class Tablero {
             }
         }
         return false;
+    }
+
+    public int getTamañoX() {
+        return tablero.length;
+    }
+
+    public int getTamañoY() {
+        return tablero[0].length;
+    }
+
+    public Celda getElemento(int x, int y) {
+        return tablero[x][y];
     }
 }
